@@ -476,14 +476,21 @@ async function handleSubmit(event) {
       onEvent: applyWorkflowEvent,
     });
   } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "Nao foi possivel concluir a tarefa.";
+    const isConnectionError =
+      message.includes("conectar ao servidor") ||
+      message.includes("backend no Render") ||
+      message.includes("rota da API");
+
     store.setState({
       phase: "error",
-      error: error instanceof Error ? error.message : "Nao foi possivel concluir a tarefa.",
+      error: message,
       activePlaybackIndex: null,
       activeAgentId: "",
       activeAgentName: "",
-      statusLabel: "Nao foi possivel concluir",
-      statusDetail: error instanceof Error ? error.message : "Tente novamente em instantes.",
+      statusLabel: isConnectionError ? "Servidor indisponivel" : "Nao foi possivel concluir",
+      statusDetail: message,
     });
   }
 }
