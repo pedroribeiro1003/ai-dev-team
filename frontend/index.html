@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Studio de Agentes</title>
+    <link rel="stylesheet" href="/assets/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand__mark">MAS</span>
+          <div>
+            <p class="brand__eyebrow">Studio de Agentes</p>
+            <strong class="brand__title">Planeje, crie e revise em um s&oacute; lugar</strong>
+          </div>
+        </div>
+
+        <div class="topbar__actions">
+          <div class="topbar__live" aria-live="polite">
+            <span class="topbar__live-dot" data-live-dot></span>
+            <div class="topbar__live-copy">
+              <strong data-live-label>Pronto para come&ccedil;ar</strong>
+              <span data-live-detail>Escreva uma tarefa para acompanhar cada etapa.</span>
+            </div>
+          </div>
+          <div class="topbar__cluster">
+            <span class="topbar__pill" data-live-progress>0% conclu&iacute;do</span>
+            <span class="topbar__pill topbar__pill--muted" data-live-agent>Sem agente ativo</span>
+          </div>
+          <button type="button" class="theme-toggle" data-theme-toggle>
+            Tema claro
+          </button>
+        </div>
+      </header>
+
+      <header class="hero hero--compact">
+        <div class="hero__copy">
+          <span class="eyebrow">Comece por aqui</span>
+          <h1>Explique sua ideia em poucas palavras</h1>
+          <p>Digite a tarefa, clique em come&ccedil;ar e acompanhe o resultado.</p>
+
+          <form id="task-form" class="composer composer--hero" data-task-form>
+            <div class="composer__intro composer__intro--compact">
+              <div class="composer__label-row">
+                <label class="composer__label" for="task-input">O que voc&ecirc; quer criar?</label>
+                <span class="composer__hint-pill">Entrada principal</span>
+              </div>
+            </div>
+            <div class="composer__input-wrap">
+              <textarea
+                id="task-input"
+                class="composer__input"
+                data-task-input
+                rows="4"
+                placeholder="Ex.: Crie uma tela de cadastro com valida&ccedil;&atilde;o, lista de usu&aacute;rios e mensagens claras."
+              ></textarea>
+            </div>
+            <div class="composer__footer composer__footer--compact">
+              <p class="composer__hint">
+                Use uma frase simples. O sistema organiza o resto.
+              </p>
+              <button class="composer__button" type="submit" data-submit-button>
+                Come&ccedil;ar
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div class="hero__aside">
+          <section class="guide-panel guide-panel--compact" aria-label="Como funciona">
+            <div class="guide-panel__header">
+              <strong>Como funciona</strong>
+            </div>
+            <div class="guide-steps guide-steps--compact">
+              <article class="guide-step">
+                <span class="guide-step__number">1</span>
+                <div>
+                  <strong>Escreva</strong>
+                  <p>Diga o que voc&ecirc; precisa.</p>
+                </div>
+              </article>
+              <article class="guide-step">
+                <span class="guide-step__number">2</span>
+                <div>
+                  <strong>Acompanhe</strong>
+                  <p>Veja as etapas em andamento.</p>
+                </div>
+              </article>
+              <article class="guide-step">
+                <span class="guide-step__number">3</span>
+                <div>
+                  <strong>Baixe</strong>
+                  <p>Salve o resultado quando quiser.</p>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <div class="hero__console hero__console--compact">
+            <div class="hero-console__header">
+              <span class="hero-console__eyebrow">Acompanhamento</span>
+              <span class="hero-console__status" data-hero-status>Pronto</span>
+            </div>
+            <p class="hero-console__text" data-hero-detail>
+              O andamento da sua tarefa aparece aqui em tempo real.
+            </p>
+          </div>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <section class="panel panel--conversation">
+          <div class="panel__header">
+            <div>
+              <span class="panel__eyebrow">Resultado</span>
+              <h2>Resumo das etapas</h2>
+            </div>
+            <p class="panel__description">
+              Veja s&oacute; o essencial e abra detalhes quando precisar.
+            </p>
+          </div>
+
+          <div id="chat-thread" class="thread" aria-live="polite"></div>
+        </section>
+
+        <aside class="panel panel--inspector">
+          <section class="inspector-section">
+            <div class="section-header">
+              <span class="panel__eyebrow">Equipe</span>
+              <h2>Quem est&aacute; trabalhando</h2>
+            </div>
+            <div id="agent-rail" class="agent-rail"></div>
+          </section>
+
+          <section class="inspector-section">
+            <div class="section-header">
+              <span class="panel__eyebrow">Etapas</span>
+              <h2>Linha do tempo</h2>
+            </div>
+            <div id="execution-timeline" class="timeline-panel"></div>
+          </section>
+
+          <section class="inspector-section">
+            <div class="section-header">
+              <span class="panel__eyebrow">Resultado</span>
+              <h2>Resumo do c&oacute;digo</h2>
+            </div>
+            <div id="code-evolution" class="evolution-panel"></div>
+          </section>
+        </aside>
+      </main>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
