@@ -1,5 +1,8 @@
+const API_BASE_URL = "https://ai-dev-team-a3f1n.onrender.com";
+const WORKFLOW_RUN_URL = new URL("/api/workflows/run", API_BASE_URL).toString();
+
 export async function runWorkflow(task) {
-  const response = await fetch("/api/workflows/run", {
+  const response = await fetch(WORKFLOW_RUN_URL, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -24,8 +27,12 @@ export async function runWorkflow(task) {
 }
 
 function getWorkflowSocketUrl() {
-  const protocol = window.location.protocol === "https:" ? "wss" : "ws";
-  return `${protocol}://${window.location.host}/api/workflows/stream`;
+  const socketUrl = new URL(API_BASE_URL);
+  socketUrl.protocol = socketUrl.protocol === "https:" ? "wss:" : "ws:";
+  socketUrl.pathname = "/api/workflows/stream";
+  socketUrl.search = "";
+  socketUrl.hash = "";
+  return socketUrl.toString();
 }
 
 export function streamWorkflow(task, { onEvent } = {}) {
