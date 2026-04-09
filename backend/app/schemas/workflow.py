@@ -1,14 +1,11 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
-
 from pydantic import BaseModel, Field
-
-from ..domain.models import WorkflowExecution
 
 
 class TaskRequest(BaseModel):
-    task: str = Field(..., min_length=5, max_length=1_000)
+    task: str = Field(..., min_length=5, max_length=1000)
 
 
 class VirtualFileResponse(BaseModel):
@@ -86,7 +83,7 @@ def serialize_step(step) -> AgentStepResponse:
         changes=[
             FileChangeResponse(
                 path=change.path,
-                change_type=change.change_type.value,
+                change_type=str(change.change_type),
                 summary=change.summary,
             )
             for change in step.changes
@@ -99,7 +96,7 @@ def serialize_step(step) -> AgentStepResponse:
     )
 
 
-def serialize_execution(execution: WorkflowExecution) -> WorkflowResponse:
+def serialize_execution(execution) -> WorkflowResponse:
     completed_at = execution.completed_at or datetime.now(timezone.utc)
 
     return WorkflowResponse(
