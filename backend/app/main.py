@@ -1,32 +1,31 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-# IMPORT ABSOLUTO (evita erro no Render)
 from backend.app.api.routes.workflow import router as workflow_router
 
-app = FastAPI(
-    title="AI Dev API",
-    version="1.0.0",
-    description="Sistema fullstack com FastAPI e agentes.",
-)
+app = FastAPI()
+
+# CORS CORRIGIDO
+origins = [
+    "http://localhost:3000",
+    "http://localhost:5173",
+    "https://69d6e53ce42f20014fa5f2a6--aidevteam.netlify.app",  # SEU FRONTEND
+]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# ROTA PRINCIPAL (evita 404)
 @app.get("/")
 async def root():
-    return {"message": "API rodando 🚀", "docs": "/docs"}
+    return {"message": "API rodando 🚀"}
 
-# HEALTH CHECK
 @app.get("/api/health")
 async def healthcheck():
     return {"status": "ok"}
 
-# ROTAS DO WORKFLOW
 app.include_router(workflow_router, prefix="/api")
