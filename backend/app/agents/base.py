@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 
-from backend.app.domain.models import AgentResult, ProjectState
-from backend.app.services.task_profiler import TaskProfile, build_task_profile
+from ..domain.models import AgentResult, ProjectState
+from ..services.task_profiler import TaskProfile, build_task_profile
 
 
 class BaseAgent(ABC):

@@ -1,10 +1,10 @@
 from __future__ import annotations
 
-from fastapi import APIRouter, WebSocket, WebSocketDisconnect
+from fastapi import APIRouter, HTTPException, WebSocket, WebSocketDisconnect
 from pydantic import ValidationError
 
-from backend.app.schemas.workflow import TaskRequest, WorkflowResponse, serialize_execution
-from backend.app.services.orchestrator import MultiAgentOrchestrator
+from ...schemas.workflow import TaskRequest, WorkflowResponse, serialize_execution
+from ...services.orchestrator import MultiAgentOrchestrator
 
 
 router = APIRouter(prefix="/workflows", tags=["workflows"])
@@ -27,8 +27,16 @@ async def list_agents() -> dict:
 
 @router.post("/run", response_model=WorkflowResponse)
 async def run_workflow(payload: TaskRequest) -> WorkflowResponse:
-    execution = orchestrator.run(payload.task)
+    try:
+        execution = orchestrator.run(payload.task)
+    except Exception as exc:  # pragma: no cover - defesa para deploy.
+        raise HTTPException(status_code=500, detail="Nao foi possivel concluir a tarefa.") from exc
     return serialize_execution(execution)
+
+
+@router.post("/task", response_model=WorkflowResponse, include_in_schema=False)
+async def run_workflow_alias(payload: TaskRequest) -> WorkflowResponse:
+    return await run_workflow(payload)
 
 
 @router.websocket("/stream")

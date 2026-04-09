@@ -2,12 +2,12 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 
-from backend.app.agents.architect import ArchitectAgent
-from backend.app.agents.developer import DeveloperAgent
-from backend.app.agents.reviewer import ReviewerAgent
-from backend.app.agents.tester import TesterAgent
-from backend.app.domain.models import ProjectState, WorkflowExecution
-from backend.app.schemas.workflow import serialize_snapshot, serialize_step
+from ..agents.architect import ArchitectAgent
+from ..agents.developer import DeveloperAgent
+from ..agents.reviewer import ReviewerAgent
+from ..agents.tester import TesterAgent
+from ..domain.models import ProjectState, WorkflowExecution
+from ..schemas.workflow import serialize_snapshot, serialize_step
 
 
 class MultiAgentOrchestrator:

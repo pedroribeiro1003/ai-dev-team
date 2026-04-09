@@ -19,10 +19,21 @@ Sistema fullstack com:
 
 ```bash
 python -m pip install -r requirements.txt
-uvicorn backend.app.main:app --reload
+cd backend
+uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
-Abra `http://127.0.0.1:8000`.
+Rotas principais:
+
+- `http://127.0.0.1:8000/api/health`
+- `http://127.0.0.1:8000/api/workflows/run`
+- `http://127.0.0.1:8000/docs`
+
+No Render, o backend pode subir com:
+
+```bash
+uvicorn app.main:app --host 0.0.0.0 --port $PORT
+```
 
 ## Testes
 

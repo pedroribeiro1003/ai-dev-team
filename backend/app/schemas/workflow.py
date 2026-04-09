@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 
 from pydantic import BaseModel, Field
 
-from backend.app.domain.models import WorkflowExecution
+from ..domain.models import WorkflowExecution
 
 
 class TaskRequest(BaseModel):

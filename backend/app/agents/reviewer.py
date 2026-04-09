@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from textwrap import dedent
 
-from backend.app.agents.base import BaseAgent
-from backend.app.domain.models import AgentResult, ProjectState
+from .base import BaseAgent
+from ..domain.models import AgentResult, ProjectState
 
 
 class ReviewerAgent(BaseAgent):
