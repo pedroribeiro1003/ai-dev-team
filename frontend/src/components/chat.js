@@ -100,7 +100,7 @@ function buildStepSummary(step, status) {
     return truncateText(step.message || step.headline || "Etapa em andamento.", 88);
   }
 
-  return "Aguardando o in\u00edcio desta etapa.";
+  return "Aguardando o início desta etapa.";
 }
 
 function renderStatusPill(status) {
@@ -110,7 +110,7 @@ function renderStatusPill(status) {
         status === "active"
           ? "Executando"
           : status === "complete"
-            ? "Conclu\u00eddo"
+            ? "Concluído"
             : "Aguardando"
       }
     </span>
@@ -239,8 +239,8 @@ function renderDetails(step) {
           : ""
       }
       <div class="thread-card__chips thread-card__chips--meta">
-        <span>${escapeHtml(formatTimestamp(step.completed_at) || "Etapa conclu\u00edda")}</span>
-        <span>${escapeHtml(formatDuration(step.duration_ms) || "Dura\u00e7\u00e3o indispon\u00edvel")}</span>
+        <span>${escapeHtml(formatTimestamp(step.completed_at) || "Etapa concluída")}</span>
+        <span>${escapeHtml(formatDuration(step.duration_ms) || "Duração indisponível")}</span>
       </div>
     </div>
   `;
@@ -250,8 +250,8 @@ function renderUserCard(state) {
   if (!state.submittedTask) {
     return `
       <section class="empty-state">
-        As etapas aparecem aqui assim que voc\u00ea enviar uma tarefa. Cada bloco
-        mostra s\u00f3 o que importa.
+        As etapas aparecem aqui assim que você enviar uma tarefa. Cada bloco
+        mostra só o que importa.
       </section>
     `;
   }
@@ -259,8 +259,8 @@ function renderUserCard(state) {
   return `
     <article class="thread-card thread-card--user">
       <div class="thread-card__topline">
-        <strong>Voc\u00ea</strong>
-        <span class="thread-card__meta">${escapeHtml(formatTimestamp(state.executedAt || state.runStartedAt) || "Pronto para come\u00e7ar")}</span>
+        <strong>Você</strong>
+        <span class="thread-card__meta">${escapeHtml(formatTimestamp(state.executedAt || state.runStartedAt) || "Pronto para começar")}</span>
       </div>
       <h3 class="thread-card__headline">Sua tarefa</h3>
       <p>${escapeHtml(truncateText(state.submittedTask, 160))}</p>
@@ -322,9 +322,9 @@ function renderExecutionBanner(state) {
       <div class="execution-banner__body">
         <div class="execution-banner__topline">
           <strong>${escapeHtml(activeMeta?.name ?? "Processo")} em andamento</strong>
-          <span>${progress}% conclu\u00eddo</span>
+          <span>${progress}% concluído</span>
         </div>
-        <p>${escapeHtml(truncateText(state.statusDetail || activeMeta?.summary || "As etapas est\u00e3o avan\u00e7ando em sequ\u00eancia.", 100))}</p>
+        <p>${escapeHtml(truncateText(state.statusDetail || activeMeta?.summary || "As etapas estão avançando em sequência.", 100))}</p>
         <div class="execution-banner__chips">
           <span class="metric-pill metric-pill--live">${escapeHtml(state.statusLabel)}</span>
           <span class="metric-pill">${escapeHtml(state.activeAgentName || "Aguardando a primeira etapa")}</span>

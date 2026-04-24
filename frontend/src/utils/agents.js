@@ -4,14 +4,14 @@ export const agentCatalog = [
     name: "Arquiteto",
     shortName: "Arq",
     role: "strategy",
-    summary: "Organiza a estrutura da solu\u00e7\u00e3o e define o melhor caminho.",
+    summary: "Organiza a estrutura da solução e define o melhor caminho.",
   },
   {
     id: "developer",
     name: "Desenvolvedor",
     shortName: "Dev",
     role: "implementation",
-    summary: "Constr\u00f3i a solu\u00e7\u00e3o e conecta as partes principais.",
+    summary: "Constrói a solução e conecta as partes principais.",
   },
   {
     id: "tester",
@@ -25,7 +25,7 @@ export const agentCatalog = [
     name: "Revisor",
     shortName: "Rev",
     role: "governance",
-    summary: "Refina o resultado e fecha os \u00faltimos ajustes.",
+    summary: "Refina o resultado e fecha os últimos ajustes.",
   },
 ];
 

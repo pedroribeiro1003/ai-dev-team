@@ -1,24 +1,40 @@
+from __future__ import annotations
+
+from pathlib import Path
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 
-from backend.app.api.routes.workflow import router as workflow_router
+from .api.routes.workflow import router as workflow_router
+from .core.config import settings
 
-app = FastAPI()
 
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+FRONTEND_DIR = PROJECT_ROOT / "frontend"
+
+app = FastAPI(
+    title=settings.app_name,
+    version=settings.version,
+    description="Sistema fullstack com FastAPI, agentes dedicados e interface tipo chat.",
+)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+app.include_router(workflow_router, prefix=settings.api_prefix)
+app.mount("/assets", StaticFiles(directory=FRONTEND_DIR / "assets"), name="assets")
+app.mount("/src", StaticFiles(directory=FRONTEND_DIR / "src"), name="src")
 
-@app.get("/")
-def root():
-    return {"message": "API rodando 🚀"}
 
 @app.get("/api/health")
-def health():
-    return {"status": "ok"}
+async def healthcheck() -> dict:
+    return {"status": "ok", "app": settings.app_name}
 
-app.include_router(workflow_router, prefix="/api")
+
+@app.get("/", include_in_schema=False)
+async def serve_index() -> FileResponse:
+    return FileResponse(FRONTEND_DIR / "index.html")

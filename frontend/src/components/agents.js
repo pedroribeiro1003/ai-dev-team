@@ -39,7 +39,7 @@ function renderStatusLabel(status) {
   return {
     queued: "Aguardando",
     active: "Executando",
-    complete: "Conclu\u00eddo",
+    complete: "Concluído",
   }[status];
 }
 
@@ -70,7 +70,7 @@ export function renderAgentRail(state) {
   if (!state.steps.length && state.phase !== "fetching") {
     return `
       <section class="empty-state">
-        Os agentes aparecem aqui assim que a sua tarefa come\u00e7a.
+        Os agentes aparecem aqui assim que a sua tarefa começa.
       </section>
     `;
   }
@@ -88,13 +88,13 @@ export function renderAgentRail(state) {
     state.phase === "fetching"
       ? "Estamos organizando as etapas."
       : state.phase === "playing"
-        ? "Os agentes est\u00e3o trabalhando em sequ\u00eancia."
+        ? "Os agentes estão trabalhando em sequência."
         : truncateText(state.finalSummary || "Tudo pronto.", 120);
 
   return `
     <div class="evolution-metrics">
       <span class="metric-pill">${state.visibleStepCount}/${pipeline.length} etapas</span>
-      <span class="metric-pill">${state.progressPercent}% conclu\u00eddo</span>
+      <span class="metric-pill">${state.progressPercent}% concluído</span>
       ${
         finalVisible
           ? `<span class="metric-pill">${escapeHtml(formatTimestamp(state.executedAt))}</span>`

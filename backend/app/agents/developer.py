@@ -18,19 +18,19 @@ class DeveloperAgent(BaseAgent):
                 "workspace/backend/app/services/orchestrator.py",
                 self._orchestrator_impl(profile),
                 "python",
-                "Transforma o desenho arquitetural em pipeline executavel com snapshots incrementais.",
+                "Transforma o desenho arquitetural em pipeline executável com snapshots incrementais.",
             ),
             state.upsert_file(
                 "workspace/backend/app/agents/dev_agent.py",
                 self._developer_agent_module(profile),
                 "python",
-                "Implementa um agente de entrega com handoff explicito e foco em incrementalismo.",
+                "Implementa um agente de entrega com handoff explícito e foco em incrementalismo.",
             ),
             state.upsert_file(
                 "workspace/frontend/src/main.js",
                 self._frontend_runtime(profile),
                 "javascript",
-                "Liga a submissao da tarefa ao playback sequencial e aos estados de carregamento.",
+                "Liga a submissão da tarefa ao playback sequencial e aos estados de carregamento.",
             ),
             state.upsert_file(
                 "workspace/frontend/src/components/AgentPanel.js",
@@ -48,19 +48,19 @@ class DeveloperAgent(BaseAgent):
         )
         highlights = [
             f"Entrega priorizada em {self.join_items(profile.delivery_slices)}.",
-            f"Tradeoff assumido: memoria em processo agora, persistencia depois.",
+            f"Tradeoff assumido: memória em processo agora, persistência depois.",
             f"UX guiada por {self.join_items(profile.frontend_focus)}.",
-            f"Bloqueio tecnico evitado: {profile.risks[0]}.",
+            f"Bloqueio técnico evitado: {profile.risks[0]}.",
         ]
         return self.build_result(
             order=order,
             state=state,
-            headline="Implementacao fatiada para andar rapido sem perder coerencia",
+            headline="Implementação fatiada para andar rápido sem perder coerência",
             message=(
                 "Peguei o mapa do Architect e fatiei a entrega em blocos que realmente "
-                "cabem em uma iteracao curta. Em vez de tentar resolver tudo ao mesmo "
+                "cabem em uma iteração curta. Em vez de tentar resolver tudo ao mesmo "
                 f"tempo, ataquei primeiro {profile.delivery_slices[0]} e depois "
-                f"{profile.delivery_slices[2]}. Isso deixou o fluxo executavel desde cedo, "
+                f"{profile.delivery_slices[2]}. Isso deixou o fluxo executável desde cedo, "
                 f"sem ignorar o risco de {profile.risks[0]}."
             ),
             highlights=highlights,

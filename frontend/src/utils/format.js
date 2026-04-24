@@ -1,8 +1,8 @@
 const roleMap = {
   strategy: "Arquitetura",
   implementation: "Desenvolvimento",
-  quality: "Valida\u00e7\u00e3o",
-  governance: "Revis\u00e3o",
+  quality: "Validação",
+  governance: "Revisão",
 };
 
 export function escapeHtml(value = "") {

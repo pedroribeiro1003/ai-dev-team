@@ -3,7 +3,7 @@ import { escapeHtml, formatDuration, formatTimestamp } from "../utils/format.js"
 function renderEmptyTimeline() {
   return `
     <section class="empty-state">
-      A linha do tempo mostra quando cada etapa come\u00e7a e termina.
+      A linha do tempo mostra quando cada etapa começa e termina.
     </section>
   `;
 }

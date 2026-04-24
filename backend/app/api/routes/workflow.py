@@ -30,7 +30,7 @@ async def run_workflow(payload: TaskRequest) -> WorkflowResponse:
     try:
         execution = orchestrator.run(payload.task)
     except Exception as exc:  # pragma: no cover - defesa para deploy.
-        raise HTTPException(status_code=500, detail="Nao foi possivel concluir a tarefa.") from exc
+        raise HTTPException(status_code=500, detail="Não foi possível concluir a tarefa.") from exc
     return serialize_execution(execution)
 
 
@@ -50,7 +50,7 @@ async def stream_workflow(websocket: WebSocket) -> None:
         await websocket.send_json(
             {
                 "type": "workflow_error",
-                "detail": "Envie uma tarefa valida com pelo menos 5 caracteres.",
+                "detail": "Envie uma tarefa válida com pelo menos 5 caracteres.",
             }
         )
         await websocket.close(code=1008)

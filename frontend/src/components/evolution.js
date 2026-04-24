@@ -111,13 +111,13 @@ export function renderEvolution(state) {
     return `
       <article class="evolution-card evolution-card--loading">
         <div>
-          <h3>Preparando as primeiras mudan\u00e7as</h3>
+          <h3>Preparando as primeiras mudanças</h3>
           <p class="evolution-card__meta">
-            O resumo do c\u00f3digo aparece assim que a primeira etapa terminar.
+            O resumo do código aparece assim que a primeira etapa terminar.
           </p>
         </div>
         <div class="evolution-metrics">
-          <span class="metric-pill">Resumo em prepara\u00e7\u00e3o</span>
+          <span class="metric-pill">Resumo em preparação</span>
           <span class="metric-pill">Arquivos aguardando</span>
         </div>
         <div class="file-list file-list--loading">
@@ -134,7 +134,7 @@ export function renderEvolution(state) {
   if (selectedIndex === null || !step) {
     return `
       <section class="empty-state">
-        O resumo do c\u00f3digo aparece aqui depois da primeira etapa.
+        O resumo do código aparece aqui depois da primeira etapa.
       </section>
     `;
   }
@@ -165,7 +165,7 @@ export function renderEvolution(state) {
       ${renderResultCards(step, changedLines)}
 
       <div class="evolution-metrics">
-        <span class="metric-pill">${step.snapshot.completion}% conclu\u00eddo</span>
+        <span class="metric-pill">${step.snapshot.completion}% concluído</span>
         <span class="metric-pill">${step.snapshot.files.length} arquivos</span>
         <span class="metric-pill">${changedLines} linhas alteradas</span>
       </div>

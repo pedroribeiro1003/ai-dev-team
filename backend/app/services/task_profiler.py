@@ -50,44 +50,44 @@ def build_task_profile(task: str) -> TaskProfile:
         domain = "workspace conversacional com agentes"
 
     if _contains_any(lowered, "agente", "multiagente", "workflow", "orquestr"):
-        capabilities.append("handoff previsivel entre agentes com papeis isolados")
-        backend_focus.append("pipeline de orquestracao com ordem deterministica")
-        review_lens.append("clareza de responsabilidades entre papeis especializados")
+        capabilities.append("handoff previsível entre agentes com papéis isolados")
+        backend_focus.append("pipeline de orquestração com ordem determinística")
+        review_lens.append("clareza de responsabilidades entre papéis especializados")
 
     if _contains_any(lowered, "chat", "mensag", "conversa", "assistente"):
         capabilities.append("thread de conversa com contexto preservado durante o playback")
         frontend_focus.append("timeline de mensagens com estados de loading por etapa")
         risks.append("quebra de contexto quando respostas aparecem fora da ordem")
-        quality_gates.append("validar ordenacao do transcript e restauracao do contexto")
+        quality_gates.append("validar ordenação do transcript e restauração do contexto")
 
     if _contains_any(lowered, "dashboard", "painel", "analytics", "relatorio"):
-        capabilities.append("visao executiva do progresso com sinais de status claros")
-        frontend_focus.append("cards de leitura rapida sem sacrificar densidade informacional")
-        risks.append("sobrecarga visual quando muitas metricas competem por atencao")
-        review_lens.append("consistencia entre narrativa do chat e metricas do painel")
+        capabilities.append("visão executiva do progresso com sinais de status claros")
+        frontend_focus.append("cards de leitura rápida sem sacrificar densidade informacional")
+        risks.append("sobrecarga visual quando muitas métricas competem por atenção")
+        review_lens.append("consistência entre narrativa do chat e métricas do painel")
 
     if _contains_any(lowered, "login", "auth", "autentic", "usuario", "perfil"):
-        backend_focus.append("autenticacao, sessoes e isolamento de dados por usuario")
-        risks.append("vazamento de dados entre sessoes ou perfis com privilegios distintos")
-        quality_gates.append("cobrir expiracao de sessao e checagens de autorizacao")
-        review_lens.append("gates de seguranca antes de considerar rollout")
+        backend_focus.append("autenticação, sessões e isolamento de dados por usuário")
+        risks.append("vazamento de dados entre sessões ou perfis com privilégios distintos")
+        quality_gates.append("cobrir expiração de sessão e checagens de autorização")
+        review_lens.append("gates de segurança antes de considerar rollout")
 
     if _contains_any(lowered, "tempo real", "realtime", "stream", "ao vivo", "socket"):
-        backend_focus.append("streaming incremental de eventos com reconexao segura")
-        frontend_focus.append("sincronizacao parcial do estado durante respostas em tempo real")
-        risks.append("mensagens duplicadas ou fora de sequencia em reconexoes")
-        quality_gates.append("simular lentidao, reconexao e eventos fora de ordem")
+        backend_focus.append("streaming incremental de eventos com reconexão segura")
+        frontend_focus.append("sincronização parcial do estado durante respostas em tempo real")
+        risks.append("mensagens duplicadas ou fora de sequência em reconexões")
+        quality_gates.append("simular lentidão, reconexão e eventos fora de ordem")
 
     if _contains_any(lowered, "api", "integracao", "webhook", "extern"):
-        backend_focus.append("contratos de integracao e tratamento de falhas externas")
+        backend_focus.append("contratos de integração e tratamento de falhas externas")
         risks.append("payloads inconsistentes vindos de provedores externos")
-        quality_gates.append("validar timeouts, retries e degradacao controlada")
-        review_lens.append("acoplamento com fornecedores externos e estrategia de fallback")
+        quality_gates.append("validar timeouts, retries e degradação controlada")
+        review_lens.append("acoplamento com fornecedores externos e estratégia de fallback")
 
     if _contains_any(lowered, "codigo", "snapshot", "evolucao", "diff"):
-        capabilities.append("historico de snapshots para explicar a evolucao do codigo")
-        frontend_focus.append("navegacao de arquivos com foco no snapshot ativo")
-        quality_gates.append("garantir coerencia entre etapa exibida e arquivo selecionado")
+        capabilities.append("histórico de snapshots para explicar a evolução do código")
+        frontend_focus.append("navegação de arquivos com foco no snapshot ativo")
+        quality_gates.append("garantir coerência entre etapa exibida e arquivo selecionado")
 
     if _contains_any(lowered, "mobile", "responsiv", "tablet"):
         frontend_focus.append("comportamento responsivo sem perder hierarquia visual")
@@ -97,22 +97,22 @@ def build_task_profile(task: str) -> TaskProfile:
         capabilities.extend(
             [
                 "entrega progressiva com mensagens contextualizadas por agente",
-                "visibilidade sobre como o codigo avanca a cada etapa",
+                "visibilidade sobre como o código avança a cada etapa",
             ]
         )
 
     if not backend_focus:
         backend_focus.extend(
             [
-                "contratos FastAPI com schemas claros para cada execucao",
-                "servico de orquestracao desacoplado dos agentes individuais",
+                "contratos FastAPI com schemas claros para cada execução",
+                "serviço de orquestração desacoplado dos agentes individuais",
             ]
         )
 
     if not frontend_focus:
         frontend_focus.extend(
             [
-                "chat operacional com estados de submissao, playback e erro",
+                "chat operacional com estados de submissão, playback e erro",
                 "painel lateral para explorar arquivos produzidos em cada snapshot",
             ]
         )
@@ -121,20 +121,20 @@ def build_task_profile(task: str) -> TaskProfile:
         risks.extend(
             [
                 "escopo nebuloso entre agentes gera respostas superficiais",
-                "contrato frouxo entre backend e frontend cria regressao visual",
+                "contrato frouxo entre backend e frontend cria regressão visual",
             ]
         )
 
     quality_gates.extend(
         [
-            "confirmar que os quatro agentes aparecem sempre na mesma sequencia",
+            "confirmar que os quatro agentes aparecem sempre na mesma sequência",
             "garantir que o snapshot final acumula os artefatos das etapas anteriores",
         ]
     )
     review_lens.extend(
         [
             "legibilidade do fluxo completo para uma equipe que precise manter o produto",
-            "base pronta para crescer sem colar logica de dominio na interface",
+            "base pronta para crescer sem colar lógica de domínio na interface",
         ]
     )
 
@@ -148,9 +148,9 @@ def build_task_profile(task: str) -> TaskProfile:
     delivery_slices = _dedupe(
         [
             "contrato HTTP para enviar a tarefa e receber os passos do workflow",
-            "pipeline backend para coordenar agentes e snapshots em memoria",
-            "interface de chat com loading, playback e selecao do agente ativo",
-            "painel de codigo para navegar arquivos e progresso por etapa",
+            "pipeline backend para coordenar agentes e snapshots em memória",
+            "interface de chat com loading, playback e seleção do agente ativo",
+            "painel de código para navegar arquivos e progresso por etapa",
         ]
     )
 

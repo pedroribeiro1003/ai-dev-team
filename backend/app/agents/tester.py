@@ -18,43 +18,43 @@ class TesterAgent(BaseAgent):
                 "workspace/backend/tests/test_orchestrator.py",
                 self._test_suite(profile),
                 "python",
-                "Cobre ordem dos agentes, contrato do payload e acumulacao de snapshots.",
+                "Cobre ordem dos agentes, contrato do payload e acumulação de snapshots.",
             ),
             state.upsert_file(
                 "workspace/frontend/src/services/api.js",
                 self._api_client(profile),
                 "javascript",
-                "Padroniza tratamento de falhas, resposta invalida e retry futuro.",
+                "Padroniza tratamento de falhas, resposta inválida e retry futuro.",
             ),
             state.upsert_file(
                 "workspace/QUALITY_CHECKLIST.md",
                 self._quality_notes(profile),
                 "markdown",
-                "Lista cenarios criticos, riscos de UX e criterios de aceite da iteracao.",
+                "Lista cenários críticos, riscos de UX e critérios de aceite da iteração.",
             ),
         ]
         state.advance(
             78,
             (
                 f"Tester estressou o fluxo contra {self.join_items(profile.quality_gates)} "
-                "antes da revisao final."
+                "antes da revisão final."
             ),
         )
         highlights = [
-            f"Cenarios criticos: {self.join_items(profile.quality_gates)}.",
-            f"Modo de falha mais sensivel: {profile.risks[0]}.",
-            "Cobertura pensada para caminho feliz, latencia e regressao de contrato.",
-            "Handoff para Reviewer com foco em readiness e debito residual.",
+            f"Cenários críticos: {self.join_items(profile.quality_gates)}.",
+            f"Modo de falha mais sensível: {profile.risks[0]}.",
+            "Cobertura pensada para caminho feliz, latência e regressão de contrato.",
+            "Handoff para Reviewer com foco em readiness e débito residual.",
         ]
         return self.build_result(
             order=order,
             state=state,
-            headline="Validacao montada para procurar falhas, nao so confirmar o caminho feliz",
+            headline="Validação montada para procurar falhas, não só confirmar o caminho feliz",
             message=(
                 "Entrei com mentalidade de falha. Em vez de assumir que o fluxo estava "
-                f"correto, pressionei a implementacao nos pontos em que {profile.risks[0]} "
-                f"ou {profile.quality_gates[0]} podem quebrar a experiencia. O objetivo aqui "
-                "nao foi deixar o sistema bonito, e sim previsivel quando a execucao sair do ideal."
+                f"correto, pressionei a implementação nos pontos em que {profile.risks[0]} "
+                f"ou {profile.quality_gates[0]} podem quebrar a experiência. O objetivo aqui "
+                "não foi deixar o sistema bonito, e sim previsível quando a execução sair do ideal."
             ),
             highlights=highlights,
             changes=changes,
@@ -121,7 +121,7 @@ class TesterAgent(BaseAgent):
 
             Contexto analisado: {profile.brief}
 
-            ## Gates de validacao
+            ## Gates de validação
             - {profile.quality_gates[0]}
             - {profile.quality_gates[1] if len(profile.quality_gates) > 1 else profile.risks[0]}
             - {profile.quality_gates[2] if len(profile.quality_gates) > 2 else profile.frontend_focus[0]}
@@ -130,7 +130,7 @@ class TesterAgent(BaseAgent):
             - {profile.risks[0]}
             - {profile.risks[1] if len(profile.risks) > 1 else profile.backend_focus[0]}
 
-            ## Observacao do Tester
-            - O fluxo precisa continuar explicavel mesmo quando o backend demora ou devolve um payload parcial.
+            ## Observação do Tester
+            - O fluxo precisa continuar explicável mesmo quando o backend demora ou devolve um payload parcial.
             """
         )

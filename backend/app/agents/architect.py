@@ -18,7 +18,7 @@ class ArchitectAgent(BaseAgent):
                 "workspace/backend/app/main.py",
                 self._backend_entry(profile),
                 "python",
-                "Estrutura a API com routers, healthcheck e dependencias da orquestracao.",
+                "Estrutura a API com routers, healthcheck e dependências da orquestração.",
             ),
             state.upsert_file(
                 "workspace/backend/app/services/orchestrator.py",
@@ -30,13 +30,13 @@ class ArchitectAgent(BaseAgent):
                 "workspace/frontend/src/main.js",
                 self._frontend_shell(profile),
                 "javascript",
-                "Esboca o shell do produto com inicializacao, store e montagem da UI.",
+                "Esboça o shell do produto com inicialização, store e montagem da UI.",
             ),
             state.upsert_file(
                 "workspace/ARCHITECTURE.md",
                 self._architecture_doc(profile),
                 "markdown",
-                "Documenta drivers arquiteturais, riscos estruturais e handoff para implementacao.",
+                "Documenta drivers arquiteturais, riscos estruturais e handoff para implementação.",
             ),
         ]
         state.advance(
@@ -57,11 +57,11 @@ class ArchitectAgent(BaseAgent):
             state=state,
             headline="Arquitetura definida a partir de contratos e riscos reais",
             message=(
-                f"Li a solicitacao como uma {profile.domain} e comecei fechando fronteiras. "
-                f"Antes de falar em tela ou endpoint, tratei as dependencias entre API, "
-                f"orquestracao e UX como contratos explicitos. Isso me permitiu priorizar "
+                f"Li a solicitação como uma {profile.domain} e comecei fechando fronteiras. "
+                f"Antes de falar em tela ou endpoint, tratei as dependências entre API, "
+                f"orquestração e UX como contratos explícitos. Isso me permitiu priorizar "
                 f"{self.join_items(profile.backend_focus)} sem perder de vista que o maior "
-                f"risco do desenho e {profile.risks[0]}."
+                f"risco do desenho é {profile.risks[0]}."
             ),
             highlights=highlights,
             changes=changes,
@@ -157,7 +157,7 @@ class ArchitectAgent(BaseAgent):
             # Arquitetura Proposta
 
             ## Leitura da tarefa
-            - Dominio: {profile.domain}
+            - Domínio: {profile.domain}
             - Complexidade: {profile.complexity}
             - Objetivo resumido: {profile.brief}
 
@@ -166,10 +166,10 @@ class ArchitectAgent(BaseAgent):
             - {profile.capabilities[1] if len(profile.capabilities) > 1 else profile.backend_focus[0]}
             - {profile.frontend_focus[0]}
 
-            ## Decisoes estruturais
+            ## Decisões estruturais
             - Backend orientado por {profile.backend_focus[0]}.
             - Frontend orientado por {profile.frontend_focus[0]}.
-            - A orquestracao permanece centralizada para reduzir acoplamento entre agentes.
+            - A orquestração permanece centralizada para reduzir acoplamento entre agentes.
 
             ## Riscos assumidos
             - {profile.risks[0]}

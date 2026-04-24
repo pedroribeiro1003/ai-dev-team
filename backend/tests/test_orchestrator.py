@@ -45,12 +45,22 @@ class MultiAgentOrchestratorTests(TestCase):
         self.assertIn("fronteiras", architect.message.lower())
         self.assertIn("fatiei", developer.message.lower())
         self.assertIn("falha", tester.message.lower())
-        self.assertIn("producao", reviewer.message.lower())
-        self.assertTrue(any("tempo real" in item.lower() or "stream" in item.lower() for item in architect.highlights))
+        self.assertIn("produção", reviewer.message.lower())
+        self.assertTrue(
+            any(
+                "tempo real" in item.lower() or "stream" in item.lower()
+                for item in architect.highlights
+            )
+        )
 
     def test_stream_emits_timeline_events_with_progress(self) -> None:
         async def collect_events():
-            return [event async for event in self.orchestrator.stream("Criar timeline ao vivo para os agentes.")]
+            return [
+                event
+                async for event in self.orchestrator.stream(
+                    "Criar timeline ao vivo para os agentes."
+                )
+            ]
 
         events = asyncio.run(collect_events())
         event_types = [event["type"] for event in events]
@@ -58,7 +68,10 @@ class MultiAgentOrchestratorTests(TestCase):
 
         self.assertEqual(event_types[0], "workflow_started")
         self.assertEqual(event_types[-1], "workflow_completed")
-        self.assertEqual([event["step"]["agent_id"] for event in completed_steps], ["architect", "developer", "tester", "reviewer"])
+        self.assertEqual(
+            [event["step"]["agent_id"] for event in completed_steps],
+            ["architect", "developer", "tester", "reviewer"],
+        )
         self.assertEqual(events[-1]["progress_percent"], 100)
 
     def test_steps_include_timing_and_progress_metadata(self) -> None:

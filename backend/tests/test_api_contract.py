@@ -11,14 +11,14 @@ from backend.app.main import app
 class WorkflowApiContractTests(TestCase):
     def setUp(self) -> None:
         if TestClient is None:
-            self.skipTest("httpx nao esta instalado para executar o TestClient.")
+            self.skipTest("httpx não está instalado para executar o TestClient.")
 
         self.client = TestClient(app)
 
     def test_run_workflow_contract(self) -> None:
         response = self.client.post(
             "/api/workflows/run",
-            json={"task": "Criar painel multiagente com visualizacao de snapshots."},
+            json={"task": "Criar painel multiagente com visualização de snapshots."},
         )
 
         self.assertEqual(response.status_code, 200)
@@ -30,7 +30,7 @@ class WorkflowApiContractTests(TestCase):
     def test_task_alias_contract(self) -> None:
         response = self.client.post(
             "/api/workflows/task",
-            json={"task": "Criar painel multiagente com visualizacao de snapshots."},
+            json={"task": "Criar painel multiagente com visualização de snapshots."},
         )
 
         self.assertEqual(response.status_code, 200)

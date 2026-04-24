@@ -18,43 +18,43 @@ class ReviewerAgent(BaseAgent):
                 "workspace/backend/app/services/orchestrator.py",
                 self._reviewed_orchestrator(profile),
                 "python",
-                "Consolida o orquestrador com resumo final, status e pontos claros de extensao.",
+                "Consolida o orquestrador com resumo final, status e pontos claros de extensão.",
             ),
             state.upsert_file(
                 "workspace/frontend/src/components/CodeEvolution.js",
                 self._code_evolution_component(profile),
                 "javascript",
-                "Aprimora o painel de codigo com contexto, foco e leitura de snapshot por etapa.",
+                "Aprimora o painel de código com contexto, foco e leitura de snapshot por etapa.",
             ),
             state.upsert_file(
                 "workspace/README.md",
                 self._readme(profile),
                 "markdown",
-                "Documenta a base com fluxo de handoff, riscos residuais e recomendacoes de proxima fase.",
+                "Documenta a base com fluxo de handoff, riscos residuais e recomendações de próxima fase.",
             ),
         ]
         state.advance(
             100,
             (
-                f"Reviewer fechou a iteracao com criterio de producao, olhando para "
+                f"Reviewer fechou a iteração com critério de produção, olhando para "
                 f"{self.join_items(profile.review_lens)}."
             ),
         )
         highlights = [
             f"Leitura de release: {self.join_items(profile.review_lens)}.",
-            f"Debito aceitavel nesta rodada: persistencia e observabilidade avancada.",
+            f"Débito aceitável nesta rodada: persistência e observabilidade avançada.",
             f"Risco residual acompanhado: {profile.risks[0]}.",
             "Base pronta para crescer sem perder a narrativa entre agentes e snapshots.",
         ]
         return self.build_result(
             order=order,
             state=state,
-            headline="Revisao feita com criterio de produto pronto para evoluir",
+            headline="Revisão feita com critério de produto pronto para evoluir",
             message=(
-                "Revisei o fluxo com criterio de producao, nao so de demo. A pergunta aqui "
+                "Revisei o fluxo com critério de produção, não só de demo. A pergunta aqui "
                 f"foi se {self.join_items(profile.review_lens)} continuaria clara para o time "
-                "depois de algumas iteracoes, e nao apenas se a tela estava bonita hoje. "
-                f"O resultado ficou consistente, mas mantive visivel que {profile.risks[0]} "
+                "depois de algumas iterações, e não apenas se a tela estava bonita hoje. "
+                f"O resultado ficou consistente, mas mantive visível que {profile.risks[0]} "
                 "ainda merece monitoramento quando esse projeto sair do ambiente controlado."
             ),
             highlights=highlights,
@@ -122,11 +122,11 @@ class ReviewerAgent(BaseAgent):
 
             ## Como o fluxo pensa
             - Architect define contratos, fronteiras e riscos estruturais.
-            - Dev transforma isso em fatias implementaveis e conectadas.
+            - Dev transforma isso em fatias implementáveis e conectadas.
             - Tester procura falhas antes de aceitar o caminho feliz.
-            - Reviewer fecha a rodada com criterio de manutencao e release.
+            - Reviewer fecha a rodada com critério de manutenção e release.
 
-            ## Forcas da base atual
+            ## Forças da base atual
             - {profile.capabilities[0]}
             - {profile.backend_focus[0]}
             - {profile.frontend_focus[0]}
@@ -135,9 +135,9 @@ class ReviewerAgent(BaseAgent):
             - {profile.risks[0]}
             - {profile.risks[1] if len(profile.risks) > 1 else profile.review_lens[0]}
 
-            ## Proximos passos recomendados
+            ## Próximos passos recomendados
             - Instrumentar logs e analytics do fluxo completo.
-            - Evoluir persistencia se o produto sair do modo demonstrativo.
+            - Evoluir persistência se o produto sair do modo demonstrativo.
             - Acrescentar testes visuais e de contrato em pipeline CI.
             """
         )

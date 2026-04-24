@@ -4,14 +4,14 @@ Sistema fullstack com:
 
 - Backend em FastAPI
 - Quatro agentes separados: Architect, Dev, Tester e Reviewer
-- Orchestrator responsavel por coordenar as respostas em sequencia
+- Orchestrator responsável por coordenar as respostas em sequência
 - Frontend em JavaScript moderno com interface tipo chat
-- Painel para acompanhar a evolucao do codigo por etapa
+- Painel para acompanhar a evolução do código por etapa
 
 ## Estrutura
 
-- `backend/app/agents`: implementacoes individuais de cada agente
-- `backend/app/services/orchestrator.py`: fluxo central de coordenacao
+- `backend/app/agents`: implementações individuais de cada agente
+- `backend/app/services/orchestrator.py`: fluxo central de coordenação
 - `backend/app/api/routes/workflow.py`: endpoints HTTP
 - `frontend/src`: interface modular em JavaScript
 
@@ -41,7 +41,7 @@ uvicorn app.main:app --host 0.0.0.0 --port $PORT
 python -m unittest discover -s backend/tests
 ```
 
-Para validar tambem os endpoints HTTP com `TestClient`, instale as dependencias de desenvolvimento:
+Para validar também os endpoints HTTP com `TestClient`, instale as dependências de desenvolvimento:
 
 ```bash
 python -m pip install -r requirements-dev.txt

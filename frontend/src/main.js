@@ -12,7 +12,7 @@ import { downloadSnapshotZip } from "./utils/zip.js";
 const app = document.querySelector("#app");
 
 if (!app) {
-  throw new Error("Nao encontrei o elemento #app para montar a interface.");
+  throw new Error("Não encontrei o elemento #app para montar a interface.");
 }
 
 app.innerHTML = `
@@ -22,7 +22,7 @@ app.innerHTML = `
         <span class="brand__mark">MAS</span>
         <div>
           <p class="brand__eyebrow">Studio de Agentes</p>
-          <strong class="brand__title">Planeje, crie e revise em um so lugar</strong>
+          <strong class="brand__title">Planeje, crie e revise em um só lugar</strong>
         </div>
       </div>
 
@@ -30,12 +30,12 @@ app.innerHTML = `
         <div class="topbar__live" aria-live="polite">
           <span class="topbar__live-dot" data-live-dot></span>
           <div class="topbar__live-copy">
-            <strong data-live-label>Pronto para comecar</strong>
+            <strong data-live-label>Pronto para começar</strong>
             <span data-live-detail>Escreva uma tarefa para acompanhar cada etapa.</span>
           </div>
         </div>
         <div class="topbar__cluster">
-          <span class="topbar__pill" data-live-progress>0% concluido</span>
+          <span class="topbar__pill" data-live-progress>0% concluído</span>
           <span class="topbar__pill topbar__pill--muted" data-live-agent>Sem agente ativo</span>
         </div>
         <button type="button" class="theme-toggle" data-theme-toggle>
@@ -48,12 +48,12 @@ app.innerHTML = `
       <div class="hero__copy">
         <span class="eyebrow">Comece por aqui</span>
         <h1>Explique sua ideia em poucas palavras</h1>
-        <p>Digite a tarefa, clique em comecar e acompanhe o resultado.</p>
+        <p>Digite a tarefa, clique em começar e acompanhe o resultado.</p>
 
         <form id="task-form" class="composer composer--hero" data-task-form>
           <div class="composer__intro composer__intro--compact">
             <div class="composer__label-row">
-              <label class="composer__label" for="task-input">O que voce quer criar?</label>
+              <label class="composer__label" for="task-input">O que você quer criar?</label>
               <span class="composer__hint-pill">Entrada principal</span>
             </div>
           </div>
@@ -63,7 +63,7 @@ app.innerHTML = `
               class="composer__input"
               data-task-input
               rows="4"
-              placeholder="Ex.: Crie uma tela de cadastro com validacao, lista de usuarios e mensagens claras."
+              placeholder="Ex.: Crie uma tela de cadastro com validação, lista de usuários e mensagens claras."
             ></textarea>
           </div>
           <div class="composer__footer composer__footer--compact">
@@ -71,7 +71,7 @@ app.innerHTML = `
               Use uma frase simples. O sistema organiza o resto.
             </p>
             <button class="composer__button" type="submit" data-submit-button>
-              Comecar
+              Começar
             </button>
           </div>
         </form>
@@ -87,7 +87,7 @@ app.innerHTML = `
               <span class="guide-step__number">1</span>
               <div>
                 <strong>Escreva</strong>
-                <p>Diga o que voce precisa.</p>
+                <p>Diga o que você precisa.</p>
               </div>
             </article>
             <article class="guide-step">
@@ -133,7 +133,7 @@ app.innerHTML = `
             <h2>Resumo das etapas</h2>
           </div>
           <p class="panel__description">
-            Veja so o essencial e abra detalhes quando precisar.
+            Veja só o essencial e abra detalhes quando precisar.
           </p>
         </div>
 
@@ -144,7 +144,7 @@ app.innerHTML = `
         <section class="inspector-section">
           <div class="section-header">
             <span class="panel__eyebrow">Equipe</span>
-            <h2>Quem esta trabalhando</h2>
+            <h2>Quem está trabalhando</h2>
           </div>
           <div id="agent-rail" class="agent-rail"></div>
         </section>
@@ -160,7 +160,7 @@ app.innerHTML = `
         <section class="inspector-section">
           <div class="section-header">
             <span class="panel__eyebrow">Resultado</span>
-            <h2>Resumo do codigo</h2>
+            <h2>Resumo do código</h2>
           </div>
           <div id="code-evolution" class="evolution-panel"></div>
         </section>
@@ -204,7 +204,7 @@ const store = createStore({
   timeline: [],
   expandedSteps: {},
   showCodeDetails: false,
-  statusLabel: "Pronto para comecar",
+  statusLabel: "Pronto para começar",
   statusDetail: "Escreva uma tarefa para acompanhar cada etapa.",
 });
 
@@ -240,7 +240,7 @@ function syncLiveChrome(state) {
   }
 
   if (liveProgress) {
-    liveProgress.textContent = `${state.progressPercent}% concluido`;
+    liveProgress.textContent = `${state.progressPercent}% concluído`;
   }
 
   if (liveAgent) {
@@ -254,7 +254,7 @@ function syncLiveChrome(state) {
         : state.phase === "fetching"
           ? "Preparando"
           : state.phase === "done"
-            ? "Concluido"
+            ? "Concluído"
             : state.phase === "error"
               ? "Erro"
               : "Pronto";
@@ -311,14 +311,14 @@ function applyWorkflowEvent(payload) {
           activeAgentName: "",
           progressPercent: payload.progress_percent ?? 0,
           statusLabel: "Tarefa iniciada",
-          statusDetail: `Estamos organizando ${payload.total_steps} etapas para comecar.`,
+          statusDetail: `Estamos organizando ${payload.total_steps} etapas para começar.`,
           timeline: [
             ...current.timeline,
             createTimelineEntry({
               status: "system",
               agentId: "system",
               title: "Tarefa iniciada",
-              description: `Tudo pronto. O processo comecou com ${payload.total_steps} etapas.`,
+              description: `Tudo pronto. O processo começou com ${payload.total_steps} etapas.`,
               timestamp: payload.started_at,
               progressPercent: payload.progress_percent ?? 0,
             }),
@@ -334,14 +334,14 @@ function applyWorkflowEvent(payload) {
           activeAgentName: agentName,
           progressPercent: payload.progress_percent ?? current.progressPercent,
           statusLabel: `${agentName} em andamento`,
-          statusDetail: `${agentName} esta cuidando da etapa ${payload.order}.`,
+          statusDetail: `${agentName} está cuidando da etapa ${payload.order}.`,
           timeline: [
             ...current.timeline,
             createTimelineEntry({
               status: "active",
               agentId: payload.agent_id,
-              title: `${agentName} comecou`,
-              description: `${agentName} esta trabalhando nesta etapa agora.`,
+              title: `${agentName} começou`,
+              description: `${agentName} está trabalhando nesta etapa agora.`,
               timestamp: payload.started_at,
               progressPercent: payload.progress_percent,
             }),
@@ -395,7 +395,7 @@ function applyWorkflowEvent(payload) {
             createTimelineEntry({
               status: "system",
               agentId: "system",
-              title: "Processo concluido",
+              title: "Processo concluído",
               description: payload.final_summary,
               timestamp: payload.completed_at,
               progressPercent: payload.progress_percent ?? 100,
@@ -436,7 +436,7 @@ function render(state) {
         ? "Preparando..."
         : state.phase === "playing"
           ? "Em andamento..."
-          : "Comecar";
+          : "Começar";
   }
 }
 
@@ -477,7 +477,7 @@ async function handleSubmit(event) {
     });
   } catch (error) {
     const message =
-      error instanceof Error ? error.message : "Nao foi possivel concluir a tarefa.";
+      error instanceof Error ? error.message : "Não foi possível concluir a tarefa.";
     const isConnectionError =
       message.includes("conectar ao servidor") ||
       message.includes("backend no Render") ||
@@ -489,7 +489,7 @@ async function handleSubmit(event) {
       activePlaybackIndex: null,
       activeAgentId: "",
       activeAgentName: "",
-      statusLabel: isConnectionError ? "Servidor indisponivel" : "Nao foi possivel concluir",
+      statusLabel: isConnectionError ? "Servidor indisponível" : "Não foi possível concluir",
       statusDetail: message,
     });
   }
