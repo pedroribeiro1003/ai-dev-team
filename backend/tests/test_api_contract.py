@@ -37,11 +37,14 @@ class WorkflowApiContractTests(TestCase):
         self.assertEqual(len(response.json()["steps"]), 4)
 
     def test_health_and_docs_routes(self) -> None:
+        root = self.client.get("/")
         health = self.client.get("/api/health")
         docs = self.client.get("/docs")
 
+        self.assertEqual(root.status_code, 200)
+        self.assertEqual(root.json(), {"message": "API rodando", "status": "ok"})
         self.assertEqual(health.status_code, 200)
-        self.assertEqual(health.json()["status"], "ok")
+        self.assertEqual(health.json(), {"status": "ok"})
         self.assertEqual(docs.status_code, 200)
 
     def test_cors_preflight_headers(self) -> None:

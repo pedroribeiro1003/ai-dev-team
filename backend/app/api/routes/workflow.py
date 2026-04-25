@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import logging
+
 from fastapi import APIRouter, HTTPException, WebSocket, WebSocketDisconnect
 from pydantic import ValidationError
 
@@ -7,6 +9,7 @@ from ...schemas.workflow import TaskRequest, WorkflowResponse, serialize_executi
 from ...services.orchestrator import MultiAgentOrchestrator
 
 
+logger = logging.getLogger("app.workflow")
 router = APIRouter(prefix="/workflows", tags=["workflows"])
 orchestrator = MultiAgentOrchestrator()
 
@@ -30,6 +33,7 @@ async def run_workflow(payload: TaskRequest) -> WorkflowResponse:
     try:
         execution = orchestrator.run(payload.task)
     except Exception as exc:  # pragma: no cover - defesa para deploy.
+        logger.exception("Falha ao executar workflow HTTP.")
         raise HTTPException(status_code=500, detail="Não foi possível concluir a tarefa.") from exc
     return serialize_execution(execution)
 
@@ -64,6 +68,7 @@ async def stream_workflow(websocket: WebSocket) -> None:
     except WebSocketDisconnect:
         return
     except Exception:
+        logger.exception("Falha ao executar workflow por WebSocket.")
         await websocket.send_json(
             {
                 "type": "workflow_error",
