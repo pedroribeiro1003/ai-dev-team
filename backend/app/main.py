@@ -5,9 +5,9 @@ from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from pathlib import Path
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
 from .api.routes.workflow import router as workflow_router
@@ -19,6 +19,8 @@ logger = logging.getLogger("app.main")
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 FRONTEND_DIR = PROJECT_ROOT / "frontend"
+FRONTEND_DIST_DIR = FRONTEND_DIR / "dist"
+FRONTEND_INDEX = FRONTEND_DIST_DIR / "index.html"
 
 
 @asynccontextmanager
@@ -51,8 +53,7 @@ def mount_static_directory(route: str, directory: Path, name: str) -> None:
     logger.info("Diretório estático montado: %s -> %s", route, directory)
 
 
-mount_static_directory("/assets", FRONTEND_DIR / "assets", "assets")
-mount_static_directory("/src", FRONTEND_DIR / "src", "src")
+mount_static_directory("/assets", FRONTEND_DIST_DIR / "assets", "assets")
 
 
 @app.exception_handler(Exception)
@@ -75,5 +76,37 @@ async def healthcheck() -> dict:
 
 
 @app.get("/", include_in_schema=False)
-async def root() -> dict:
+async def root():
+    if FRONTEND_INDEX.exists():
+        return FileResponse(FRONTEND_INDEX)
+
     return {"message": "API rodando", "status": "ok"}
+
+
+@app.get("/favicon.svg", include_in_schema=False)
+async def favicon() -> FileResponse:
+    return serve_dist_file("favicon.svg")
+
+
+@app.get("/icons.svg", include_in_schema=False)
+async def icons() -> FileResponse:
+    return serve_dist_file("icons.svg")
+
+
+@app.get("/{path:path}", include_in_schema=False)
+async def spa_fallback(path: str):
+    if path.startswith("api/"):
+        raise HTTPException(status_code=404, detail="Rota da API não encontrada.")
+
+    if FRONTEND_INDEX.exists():
+        return FileResponse(FRONTEND_INDEX)
+
+    raise HTTPException(status_code=404, detail="Frontend não publicado neste serviço.")
+
+
+def serve_dist_file(filename: str) -> FileResponse:
+    file_path = FRONTEND_DIST_DIR / filename
+    if not file_path.exists():
+        raise HTTPException(status_code=404, detail="Arquivo não encontrado.")
+
+    return FileResponse(file_path)
