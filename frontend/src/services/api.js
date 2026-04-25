@@ -1,14 +1,16 @@
-const API_BASE_URL = "https://ai-dev-team-a3f1.onrender.com";
+const PRODUCTION_API_BASE_URL = "https://ai-dev-team-backend-production.up.railway.app";
+const configuredApiBaseUrl = import.meta.env.VITE_API_BASE_URL?.trim();
+const API_BASE_URL = (configuredApiBaseUrl || PRODUCTION_API_BASE_URL).replace(/\/+$/, "");
 
 // URL correta para executar o workflow
 const WORKFLOW_RUN_URL = new URL("/api/workflows/run", API_BASE_URL).toString();
 
 const CONNECTION_ERROR_MESSAGE =
-  "Não foi possível conectar ao servidor. Verifique se o backend no Render está online e tente novamente.";
+  "Não foi possível conectar ao servidor. Verifique se o backend na Railway está online e tente novamente.";
 
 function buildFriendlyHttpError(status) {
   if (status === 404) {
-    return "Não encontramos a rota da API. Confira se o backend publicado no Render está com as rotas corretas.";
+    return "Não encontramos a rota da API. Confira se o backend publicado na Railway está com as rotas corretas.";
   }
 
   if (status >= 500) {

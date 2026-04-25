@@ -7,6 +7,7 @@ import { renderTimeline } from "./components/timeline.js";
 import { streamWorkflow } from "./services/api.js";
 import { createStore } from "./state/store.js";
 import { getAgentMeta } from "./utils/agents.js";
+import { escapeHtml } from "./utils/format.js";
 import { downloadSnapshotZip } from "./utils/zip.js";
 
 const app = document.querySelector("#app");
@@ -440,6 +441,41 @@ function render(state) {
   }
 }
 
+function renderFatalError(error) {
+  console.error("Falha ao renderizar a interface.", error);
+  const message =
+    error instanceof Error
+      ? error.message
+      : "A interface encontrou um problema ao carregar.";
+
+  if (threadRoot) {
+    threadRoot.innerHTML = `
+      <div class="status-note status-note--error">
+        Não foi possível carregar a interface. Atualize a página e tente novamente.
+        <br />
+        <small>${escapeHtml(message)}</small>
+      </div>
+    `;
+    return;
+  }
+
+  app.innerHTML = `
+    <main class="app-shell">
+      <div class="status-note status-note--error">
+        Não foi possível carregar a interface. Atualize a página e tente novamente.
+      </div>
+    </main>
+  `;
+}
+
+function safeRender(state) {
+  try {
+    render(state);
+  } catch (error) {
+    renderFatalError(error);
+  }
+}
+
 async function handleSubmit(event) {
   event.preventDefault();
   const task = textarea?.value.trim() ?? "";
@@ -480,7 +516,7 @@ async function handleSubmit(event) {
       error instanceof Error ? error.message : "Não foi possível concluir a tarefa.";
     const isConnectionError =
       message.includes("conectar ao servidor") ||
-      message.includes("backend no Render") ||
+      message.includes("backend na Railway") ||
       message.includes("rota da API");
 
     store.setState({
@@ -592,5 +628,5 @@ form?.addEventListener("submit", handleSubmit);
 document.addEventListener("click", handleClick);
 document.addEventListener("keydown", handleKeyDown);
 themeToggle?.addEventListener("click", handleThemeToggle);
-store.subscribe(render);
-render(store.getState());
+store.subscribe(safeRender);
+safeRender(store.getState());
